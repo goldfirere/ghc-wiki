@@ -290,7 +290,7 @@ prepareRhs :: SimplEnv -> OutExpr -> SimplM (SimplEnv, OutExpr)
 -- Adds new floats to the env iff that allows us to return a good RHS
 prepareRhs env (Cast rhs co)    -- see Note [Float coercions]
   | (ty1, _ty2) <- coercionKind co      -- Do *not* do this if rhs is unlifted 
-  , not (isUnLiftedType ty1)            -- see Note [Float coercions (unlifted)]
+  , not (isUnLiftedType ty1)            -- see Note [Float coercions]  (unlifted)
   = do  { (env', rhs') <- makeTrivial env rhs
         ; return (env', Cast rhs' co) }
 
@@ -327,7 +327,7 @@ Note that:
   module. Sometimes, though not always, there is a bit of a narrative to the
   group of Notes as a whole.
 - Notes can be referenced across modules; in that case, the reference is
-  written like this: `-- see Note [Float coercions] in SpecConstr.lhs`
+  written like this: `-- see Note [Float coercions] in SpecConstr`
 
 ### Adding Tests
 
